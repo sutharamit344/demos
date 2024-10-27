@@ -1,0 +1,426 @@
+
+
+n =  new Date();
+y = n.getFullYear();
+m = n.getMonth();
+if(m < 10){m = "0"+m;}
+d = n.getDate();
+if(d < 10){d = "0"+d;}
+$(".Today_Date").html(d + " / " + m + " / " + y);
+$("#Invoice_Date input").val(y+"-"+m+"-"+d);
+
+
+
+    	function onlyNumbers(evt) {
+    var e = event || evt; // For trans-browser compatibility
+    var charCode = e.which || e.keyCode;
+
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+function NumToWord(inputNumber, outputControl) {
+    var str = new String(inputNumber)
+    var splt = str.split("");
+    var rev = splt.reverse();
+    var once = ['Zero', ' One', ' Two', ' Three', ' Four', ' Five', ' Six', ' Seven', ' Eight', ' Nine'];
+    var twos = ['Ten', ' Eleven', ' Twelve', ' Thirteen', ' Fourteen', ' Fifteen', ' Sixteen', ' Seventeen', ' Eighteen', ' Nineteen'];
+    var tens = ['', 'Ten', ' Twenty', ' Thirty', ' Forty', ' Fifty', ' Sixty', ' Seventy', ' Eighty', ' Ninety'];
+
+    numLength = rev.length;
+    var word = new Array();
+    var j = 0;
+
+    for (i = 0; i < numLength; i++) {
+        switch (i) {
+
+            case 0:
+                if ((rev[i] == 0) || (rev[i + 1] == 1)) {
+                    word[j] = '';
+                }
+                else {
+                    word[j] = '' + once[rev[i]];
+                }
+                word[j] = word[j];
+                break;
+
+            case 1:
+                aboveTens();
+                break;
+
+            case 2:
+                if (rev[i] == 0) {
+                    word[j] = '';
+                }
+                else if ((rev[i - 1] == 0) || (rev[i - 2] == 0)) {
+                    word[j] = once[rev[i]] + " Hundred ";
+                }
+                else {
+                    word[j] = once[rev[i]] + " Hundred and";
+                }
+                break;
+
+            case 3:
+                if (rev[i] == 0 || rev[i + 1] == 1) {
+                    word[j] = '';
+                }
+                else {
+                    word[j] = once[rev[i]];
+                }
+                if ((rev[i + 1] != 0) || (rev[i] > 0)) {
+                    word[j] = word[j] + " Thousand";
+                }
+                break;
+
+                
+            case 4:
+                aboveTens();
+                break;
+
+            case 5:
+                if ((rev[i] == 0) || (rev[i + 1] == 1)) {
+                    word[j] = '';
+                }
+                else {
+                    word[j] = once[rev[i]];
+                }
+                if (rev[i + 1] !== '0' || rev[i] > '0') {
+                    word[j] = word[j] + " Lakh";
+                }
+                 
+                break;
+
+            case 6:
+                aboveTens();
+                break;
+
+            case 7:
+                if ((rev[i] == 0) || (rev[i + 1] == 1)) {
+                    word[j] = '';
+                }
+                else {
+                    word[j] = once[rev[i]];
+                }
+                if (rev[i + 1] !== '0' || rev[i] > '0') {
+                    word[j] = word[j] + " Crore";
+                }                
+                break;
+
+            case 8:
+                aboveTens();
+                break;
+
+            default: break;
+        }
+        j++;
+    }
+
+    function aboveTens() {
+        if (rev[i] == 0) { word[j] = ''; }
+        else if (rev[i] == 1) { word[j] = twos[rev[i - 1]]; }
+        else { word[j] = tens[rev[i]]; }
+    }
+
+    word.reverse();
+    var finalOutput = '';
+    for (i = 0; i < numLength; i++) {
+        finalOutput = finalOutput + word[i];
+    }
+    document.getElementById(outputControl).innerHTML = " Rupees "+finalOutput+" Only.";
+}
+
+
+var CrntInvoice = $("#CrntInvoice b").html();
+$("#BillItems .Item_Row").detach().appendTo("#Invoice_"+CrntInvoice+" .Item_Deteil");
+
+Get_Invoice_No();
+function Get_Invoice_No(){
+var NoofInvoice = $("#All_Invoices .Invoice").length+1;
+if(NoofInvoice < 10 && NoofInvoice > 0){NoofInvoice = "00"+NoofInvoice;}
+if(NoofInvoice < 100 && NoofInvoice > 10){NoofInvoice = "0"+NoofInvoice;}
+$("#Invoice_No, #CrntInvoice b").html(NoofInvoice);	
+$(".invoiceForm").attr("id","Invoice_"+NoofInvoice);
+}
+
+tabs_select('Invoices')
+function tabs_select(tab){
+$(".tab").hide();
+$("#"+tab).show();
+$(".tabs input").removeClass("Active");
+$("#"+tab+"-tab").addClass("Active");
+}
+
+function DateFormate(){
+var Date = $("#Invoice_Date").val().split('-');
+$(".Today_Date").html(Date[2]+" / "+Date[1]+" / "+Date[0]);
+}
+
+Invoice_Party_Select()
+function Invoice_Party_Select(){
+var P_id = $("#Invoice_Party").val();
+if(P_id != "0"){
+var Party = $("#"+P_id+" .Party_Name").html();
+$("#Invoice_To div h2").html(Party);
+var address = $("#"+P_id+" .Party_Address").html();
+$("#Invoice_To div address").html(address);
+var mobile = $("#"+P_id+" .Party_Mobile").html();
+$("#Contact span").html(mobile);
+var gst = $("#"+P_id+" .Party_Gst").html();
+$("#P_GSTIN span").html(gst);
+}else{
+$("#Invoice_To div h2").html("Party's Name");
+$("#Invoice_To div address").html("");
+$("#Contact span").html("");
+$("#P_GSTIN span").html("");
+}};
+
+
+function Add_Bill(){
+var No = $("#Invoice_No").html();
+var Date = $("#invoiceDateinput").val().split('-');
+Date = Date[2]+" / "+Date[1]+" / "+Date[0];
+var P_id = $("#Invoice_Party").val();
+var Party = $("#"+P_id+" .Party_Name b").html();
+var Address = $("#"+P_id+" .Party_Address").html();
+var Gst = $("#"+P_id+" .Party_Gst").html();
+var Mobile = $("#"+P_id+" .Party_Mobile").html();
+var Propritor = $("#"+P_id+" .Party_Propritor").html();
+if(No != "" && Date != "" && P_id != "0"){
+var conf = confirm("Are you Sure Invoice "+No+" - "+Party+".");
+if(conf){
+$("#All_Invoices").prepend('<div id="Invoice_'+No+'" class="Invoice '+P_id+'" style="padding:10px;margin:5;"><div class="invoice_Deleil"><span class="Invoice_No c-red">'+No+'</span><span class="Invoice_Date float-right">'+Date+'</span></div><div class="P_Deteil"><span class="Invoice_Party_Name">'+Party+'</span> - <span class="Invoice_Party_address">'+Address+'</span> <span class="Dash">-</span> <span class="Invoice_Party_Gst">'+Gst+'</span> <span class="Dash">-</span> <span class="Invoice_Party_Propritor">'+Propritor+'</span> <span class="Dash">-</span> <span class="Invoice_Party_Contact">'+Mobile+'</span></div><table><tbody class="Item_Deteil"></tbody></table></div>');
+$('#Invoice_Party option[value="0"]').attr("selected", true);
+//$("#AddToBilling input").attr("disabled", false);
+}}else{
+alert("Data Empty.");
+}
+Get_Invoice_No();
+}
+
+
+$("*").removeClass("ActiveDiv");
+var lastinvoice = $("#Invoice_No").html();
+$("#Invoice_"+lastinvoice).addClass("ActiveDiv");
+var pastinvoice = "";
+
+$(".Invoice").click(function(){
+$("*").removeClass("ActiveDiv");
+if($(this).attr("id") != "#Invoice_"+lastinvoice){
+var CrntInvoice = $("#CrntInvoice b").html();
+var InvoiceNo = $(this).find(".Invoice_No").html();
+if(InvoiceNo != "" && InvoiceNo != pastinvoice){
+$("#CrntInvoice b").html(InvoiceNo);
+var InvoiceDate = $(this).find(".Invoice_Date").html();
+$("#invoiceDare b").html(InvoiceDate);
+var Party = $(this).find(".Invoice_Party_Name").html();
+$("#Invoice_To div h2").html(Party);
+var address = $(this).find(".Invoice_Party_address").html();
+$("#Invoice_To div address").html(address);
+var mobile = $(this).find(".Invoice_Party_Contact").html();
+$("#Contact span").html(mobile);
+var gst = $(this).find(".Invoice_Party_Gst").html();
+$("#P_GSTIN span").html(gst);
+$("#BillItems .Item_Row").detach().appendTo("#Invoice_"+CrntInvoice+" .Item_Deteil");
+$(this).find(".Item_Row").detach().appendTo("#BillItems");
+//$("#BillItems").append(Items);
+}
+}else{
+$("#BillItems .Item_Row").detach().appendTo("#Invoice_"+CrntInvoice+" .Item_Deteil");
+var InvoiceNo = $(this).find(".Invoice_No").html();
+$("#CrntInvoice b").html(InvoiceNo);
+DateFormate();
+Invoice_Party_Select();
+}
+$(".Item_Deteil .Function").hide();
+$("#BillItems .Function").show();
+pastinvoice = InvoiceNo;
+$(this).addClass("ActiveDiv");
+Grand_Total();
+});
+
+
+
+
+$(".Item_Deteil .Function").hide();
+$("#AddToBilling .Amount span").html("00");
+//$("#AddToBilling input").attr("disabled", true);
+
+function Add_To_Billing(){
+var srn = $("#BillItems tr").length;
+var CrntInvoiceNo = $("#CrntInvoice b").html();
+var Description = $("#AddToBilling .Description input").val();
+var HSN = $("#AddToBilling .HSN input").val();
+var Qty = $("#AddToBilling .Qty input").val();
+var Rate = $("#AddToBilling .Rate input").val();
+var Amount = $("#AddToBilling .Amount span").html();
+var tr = "'tr'";
+$("#BillItems").append('<tr id="'+CrntInvoiceNo+'_Row_'+srn+'" class="Item_Row invoice_'+CrntInvoiceNo+'"><td class="srn">'+srn+'</td><td class="Description">'+Description+'</td><td class="HSN" style="width:10%;">'+HSN+'</td><td class="Qty" style="width:10%;">'+Qty+'</td><td class="Rate" style="width:10%;"><span>'+Rate+'</span> /-</td><td class="Amount" style="width:10%;"><span>'+Amount+'</span> /-</td><td class="Function"><input type="button" value="Remove" onclick="closest('+tr+').remove();"></td></tr>');
+Grand_Total();
+$("#AddToBilling .Description input").focus().val("");
+$("#AddToBilling .HSN input").val("");
+$("#AddToBilling .Rate input").val("");
+$("#AddToBilling .Qty input").val("");
+$("#AddToBilling .Amount span").html("00");
+}
+
+$("#G_Total span").html("0");
+Grand_Total();
+function Grand_Total(){
+var TotalQty = 0;
+var srn = $("#BillItems tr").length;
+$("#BillItems .Item_Row").each(function () {
+var Qty = parseInt($(this).find(".Amount span").html());
+TotalQty = TotalQty+Qty;
+});
+$("#G_Total span").html(TotalQty);
+var Amount = $("#G_Total span").html();
+NumToWord(Amount,'Amount_In_Words');
+var qrserver = "https://quickchart.io/qr?text=upi%3A%2F%2Fpay%3Fpa%3Dmaruthigraphics1-1%40oksbi%26pn%3DAmit%20Purohit%26aid%3DuGICAgIDI4K-jew%26am%3D"+Amount+"&margin=1&size=100&format=svg";
+var qrUrl = "upi://pay?pa=maruthigraphics1-1@oksbi";
+$("#PaymentQR").attr("src",qrserver+qrUrl);
+}
+
+function GetAmount(){
+var rowid = $(this).closest("tr").attr("id");
+var Qty = $("#AddToBilling .Qty input").val();
+var Rate = $("#AddToBilling .Rate input").val();
+if(Qty != "" && Rate != ""){
+var Amount = Qty*Rate;
+$("#AddToBilling .Amount span").html(Amount);
+}}
+
+function Add_Partys(){
+var Name = $("#Party_Name").val();
+var Address = $("#Party_Address").val();
+var Propritor = $("#Party_Propritor").val();
+var Mobile = $("#Party_Mobile").val();
+var Gst = $("#Party_Gst").val();
+var id = $("#Party .Party").length;
+if(Name != "" && Address != "" && Mobile != ""){
+alert("Added "+id+" - "+Name+".");
+$("#All_Party").prepend('<div id="Party_'+id+'" class="Party" style="padding:10px;margin:5;"><div class="Party_Address float-right">'+Address+'</div><div class="Party_Name" ><b>'+Name+'</b></div><div class="Party_Mobile float-right">'+Mobile+'</div><div class="Party_Propritor">'+Propritor+'</div><div class="Party_Gst">'+Gst+'</div></div>');
+}else{
+alert("Empty.");
+}
+Get_Invoice_No();
+}
+
+Partys_list();
+function Partys_list(){
+$("#Invoice_Party ").html("");
+$("#Invoice_Party ").append('<option value="0" >Select Partys</option>');
+$("#All_Party .Party").each(function(){
+var id = $(this).prop("id");
+var Name = $("#"+id+" .Party_Name").html();
+var Propritor = $("#"+id+" .Party_Propritor").html();
+$("#Invoice_Party ").append('<option value="'+id+'" >'+Name+' - '+Propritor+'</option>');
+});}
+
+
+function Add_Product(){
+var Name = $("#Product_Name").val();
+var Description = $("#Product_Description").val();
+var Rate = $("#Product_Rate").val();
+var HSN = $("#Product_HSN").val();
+var id = $("#All_Products .Product").length+1;
+if(Name != ""){
+alert("Added "+id+" - "+Name+".");
+$("#All_Products").prepend('<div id="Product_'+id+'" class="Product" style="padding:10px;margin:5;"><div class="Product_Description float-right">'+Description+'</div><div class="Product_Name" >'+Name+'</div><div class="Product_HSN float-right">'+HSN+'</div><div class="Product_Rate">'+Rate+'</div></div>');
+}else{
+alert("Empty.");
+}
+Get_Invoice_No();
+autocomproductlist()
+}
+
+
+function autocomproductlist(){
+var list = '<div class="AutoComplate">';
+$("#All_Products .Product").each(function(){
+list += '<div>';
+list += '<span class="Product_Name">'+$(this).find(".Product_Name").html()+'</span> - ';
+list += '<span class="Product_Description">'+$(this).find(".Product_Description").html()+'</span> - ';
+list += '<span class="Product_HSN">'+$(this).find(".Product_HSN").html()+'</span> - ';
+list += '<span class="Product_Rate">'+$(this).find(".Product_Rate").html()+'</span>';
+list += '</div></div>';
+});
+$("#AddToBilling .Description .AutoComplate").html(list);	
+}
+
+function AutoComplateWord(){
+var value = $("#AddToBilling .Description input").val();
+if(value != ""){
+$("#AddToBilling .AutoComplate div").filter(function() {
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+}else{
+$("#AddToBilling .AutoComplate div").filter(function() {
+$(this).hide($(this).text().toLowerCase().indexOf(value) > -1)
+});
+}
+}
+
+$(".AutoComplate div").hide()
+$(".AutoComplate div").click(function(){
+var Description = $(this).find(".Product_Name").html();
+Description += ' '+$(this).find(".Product_Description").html();
+var HSN = $(this).find(".Product_HSN").html();
+var Rate = $(this).find(".Product_Rate").html();
+$("#AddToBilling .Description input").val(Description);
+$("#AddToBilling .HSN input").val(HSN);
+$("#AddToBilling .Rate input").val(Rate);
+$("#AddToBilling .Qty input").focus();
+$(".AutoComplate div").hide()
+});
+
+
+$(".Item_Row td").dblclick(function(){
+var rowid = $(this).closest("tr").attr("id");
+var data = $(this).find("input").val()
+var selspan = $(this);
+var tdfor = $(this).attr("class");
+var tyof = "text";
+if(tdfor == "Qty"){
+tyof = "number";
+}
+if(tdfor == "Rate"){
+tyof = "number";
+var selspan = $(this).find("span");
+}
+if(data == undefined){
+if(tdfor != "Amount"){
+data = selspan.html();
+selspan.html('<input type="'+tyof+'" placeholder="'+tdfor+'" value="'+data+'" style="width:80%;border:none;border-bottom:1px dotted gray;">');
+}
+}else{
+selspan.html(data);
+var Qty = parseInt($("#"+rowid+" .Qty").html());
+var Rate = parseInt($("#"+rowid+" .Rate span").html());
+var Amount = Qty*Rate;
+$("#"+rowid+" .Amount span").html(Amount);
+}
+});
+
+
+function Print_Estimate(){
+var titleforprint = "BILL OF SUPPLY";
+var PrintData = $("#Invoice_Box").html();
+var css = $("style").html();
+var newWin = window.open('','Print-Window');
+newWin.document.open();
+newWin.document.write('<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>'+titleforprint+'</title><link rel="stylesheet" href=""><style>'+css+' #AddToBilling, .Function{display:none;}</style></head><body onload="window.print();" style="font-size:12px;"><div> '+PrintData+'</div></body></html>'); 
+newWin.document.close();
+setTimeout(function(){newWin.close();},100);
+}
+
+document.addEventListener("keydown", function(event){
+	
+	if (event.ctrlKey && (event.key === 'p' || event.key === 'p'))
+    {
+        Print_Estimate();
+    }
+	
+});
+ 
+

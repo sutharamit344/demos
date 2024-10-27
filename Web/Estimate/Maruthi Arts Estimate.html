@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)file:///D:/Project/Web/Estimate/Maruthi%20Arts%20Estimate.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title class="PartysName">Maruthi Arts Estimate</title>
+<link rel="icon" href="./Maruthi Arts Estimate_files/Maruthi Arts.png" type="image/x-icon">
+<link rel="stylesheet" href="./Maruthi Arts Estimate_files/estimate.css">
+</head>
+<body id="View_Jobs" class="">
+<div class="container-xxl">
+<div class="sticky-top bg-light">
+<nav id="From_To" class="navbar justify-content-between">
+  <div class="navbar-brand text-dark" href="#">
+    <img src="./Maruthi Arts Estimate_files/Maruthi Arts.png" width="30" height="30" class="d-inline-block align-top" alt="logo">
+    <b>Maruthi Arts</b> Estimate  
+  </div>  
+  <div class="No_Print ml-auto">
+
+    <div class="d-flex justify-content-end">
+      <input type="Text" id="Job_Search" class="form-control" title="Shortcut alt+s" placeholder="Search.." onkeyup="Search_Row(&#39;Job_Rows&#39;,&#39;Job_Search&#39;)">
+      <select id="Selected_Search" class="form-control w-50 Search_List" onchange="Search_Row(&#39;Job_Rows&#39;,&#39;Job_Search&#39;)">
+      <option value="">Search All</option>
+      <option value="Job_Date">By Date</option>
+      <option value="Job_Description">By Description</option>
+      <option value="Job_item">By Item</option>
+      <option value="Job_Quantity">By Quantity</option>
+      </select>
+      
+    <button type="button" class="btn btn-md btn-secondary" data-toggle="modal" data-target="#Manage_partys">
+      Manage Party's
+      </button>
+      <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#Manage_items">
+      Manage Item
+      </button>
+      <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#Manage_Estimate">
+      Manage Estimate
+      </button>
+      <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#Analytics">
+        Analytics
+      </button>
+    </div>
+  </div>
+</nav>
+<nav class="navbar justify-content-between">
+  <select id="Selected_Party" class="form-control Partys_List w-25" title="Shortcut alt+p" onchange="Party_Selected()"><option value="No">O - Orders</option><option value="P_CASH">CASH - Cash</option><option value="P_LC">LC - Lilen Cards</option><option value="P_OMSC">OMSC - OMS</option><option value="P_DCC">DCC - Devata Card Creation</option><option value="P_AN">AN - Anubandha Enterprises</option><option value="P_BJC">BJC - Ramdev Card</option><option value="P_LM">LM - Lotus Marketing</option><option value="P_CHC">CHC - Chandan Card</option><option value="P_VEP">VEP - Venkatedri Prints</option><option value="P_Ana">Ana - Annapurna</option><option value="P_AB">AB - AB</option></select>
+  <div class="No_Print">
+    Date : <span class="Today_Date">26-10-2024</span>
+  </div>
+  <select id="Selected_Estimate" class="form-control Estimate_List w-25" title="Shortcut alt+e" onchange="Estimate_Selected()"><option value="0">0 - Pending - 26-10-2024 - 200</option><option value="4">4 - AN - 26-10-2024 - 400</option></select>
+</nav>
+</div>
+
+
+
+<div class="modal fade" id="Manage_partys" tabindex="-1" role="dialog" aria-labelledby="Manage_partys" style="display: none;" ria-hidden="true" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Manage_partysTitle">Manage Partys</h5>
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#Manage_partys">X</button>
+      </div>
+      <div class="modal-body form-row">
+	  
+      <div class="valid-feedback"></div>
+	  <div class="form-group col-3">
+       <input type="text" class="form-control" id="Party_Short_Name" placeholder="Party&#39;s Short Name" value="" required="">
+      </div>
+	  <div class="form-group col-7">
+       <input type="text" class="form-control" id="Party_Full_Name" placeholder="Party&#39;s Full Name" value="" required="">
+      </div>
+	  <div class="form-group col-2">
+       <button type="button" class="btn btn-primary col-12" onclick="Add_Partys()">Add</button>
+	  </div>
+	  
+		<table class="table ">
+		<thead>
+		<tr>
+		<th>Short Name</th>
+		<th>Party's Name</th>
+		<th></th>
+		</tr>
+		</thead>
+		<tbody id="Partys">
+		<tr id="No" class="Partys_Row"><td class="Party_Short_Name">O</td><td class="Party_Full_Name">Orders</td><td class="Function_Key text-primary">System</td></tr>
+		<tr id="P_CASH" class="Partys_Row P_C"><td class="Party_Short_Name">CASH</td><td class="Party_Full_Name">Cash</td><td class="Function_Key text-primary">System</td></tr>
+		<tr id="P_LC" class="Partys_Row P_LC"><td class="Party_Short_Name">LC</td><td class="Party_Full_Name">Lilen Cards</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove();">Delete</button></td></tr>
+		<tr id="P_OMSC" class="Partys_Row P_OMSC"><td class="Party_Short_Name">OMSC</td><td class="Party_Full_Name">OMS</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove();">Delete</button></td></tr>
+		<tr id="P_DCC" class="Partys_Row P_DCC"><td class="Party_Short_Name">DCC</td><td class="Party_Full_Name">Devata Card Creation</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove();">Delete</button></td></tr>	
+		<tr id="P_AN" class="Partys_Row P_AN"><td class="Party_Short_Name">AN</td><td class="Party_Full_Name">Anubandha Enterprises</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr>
+		<tr id="P_BJC" class="Partys_Row P_BJC"><td class="Party_Short_Name">BJC</td><td class="Party_Full_Name">Ramdev Card</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr>
+		<tr id="P_LM" class="Partys_Row P_LM"><td class="Party_Short_Name">LM</td><td class="Party_Full_Name">Lotus Marketing</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr><tr id="P_CHC" class="Partys_Row P_CHC"><td class="Party_Short_Name">CHC</td><td class="Party_Full_Name">Chandan Card</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr><tr id="P_VEP" class="Partys_Row P_VEP"><td class="Party_Short_Name">VEP</td><td class="Party_Full_Name">Venkatedri Prints</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr><tr id="P_Ana" class="Partys_Row P_Ana"><td class="Party_Short_Name">Ana</td><td class="Party_Full_Name">Annapurna</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr><tr id="P_AB" class="Partys_Row P_AB"><td class="Party_Short_Name">AB</td><td class="Party_Full_Name">AB</td><td class="Function_Key"><button class=" btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr></tbody>
+		</table>
+	  
+      </div>  
+
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>	  
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="Manage_items" tabindex="-1" role="dialog" aria-labelledby="Manage_items" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Manage_itemsTitle">Manage Items</h5>
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#Manage_items">X</button>
+      </div>
+      
+      <div class="modal-body form-row">
+      <div class="valid-feedback"></div>
+	  <div class="form-group col-6">
+       <input type="text" class="form-control" id="Items_Name" placeholder="Item Name Items etc." onkeyup="Search_Row(&#39;Items&#39;,&#39;Items_Name&#39;)" value="" required="">
+      </div>
+	  <div class="form-group col-4">
+       <input type="number" class="form-control" id="Items_Rate" placeholder="Rate" value="" required="">
+      </div>
+	  <div class="form-group col-2">
+       <button type="button" class="btn btn-primary col-12" onclick="Add_Items()">Add</button>
+	  </div>
+	  
+	  <table class="table ">
+		<thead>
+		<tr>
+		<th>Item name</th>
+		<th>Rate</th>
+		<th></th>
+		</tr>
+		</thead>
+		<tbody id="Items">
+      
+    <tr id="Items_4" class="Items_Row P_CASH" style=""><td class="Items_Name">70x10</td><td class="Items_Rate">2</td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr><tr id="Items_3" class="Items_Row P_LC" style=""><td class="Items_Name">80x10</td><td class="Items_Rate">2</td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr><tr id="Items_2" class="Items_Row P_AN" style=""><td class="Items_Name">4040</td><td class="Items_Rate">2</td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr><tr id="Items_1" class="Items_Row P_AN" style=""><td class="Items_Name">8080</td><td class="Items_Rate">2</td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr><tr id="Items_5" class="Items_Row P_AN"><td class="Items_Name">83247</td><td class="Items_Rate">2</td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="closest(&#39;tr&#39;).remove(); TotalCount(); TotalCount();">Delete</button></td></tr></tbody>
+		</table>
+	  
+      </div>   
+	 
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>	
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="Manage_Estimate" tabindex="-1" role="dialog" aria-labelledby="Manage_Estimate" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Manage_EstimateTitle">Manage Estimate</h5>
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#Manage_Estimate">X</button>
+      </div>
+      
+      <div class="modal-body form-row">
+      <div class="valid-feedback"></div>
+	  <div class="form-group col-1">
+       <div class="btn">Sr. No.</div>
+	  </div>
+	  <div class="form-group col-1">
+	  <div id="Estimate_Sr_No" class="btn text-danger Estimate_Sr_No">5</div>
+	  </div>
+	  <div class="form-group col-3">
+       <input type="Date" class="form-control Input_Today_Date" id="Estimate_Date" onchange="SearchEstimate()" required="">
+      </div>
+	  <div class="form-group col-2">
+       <button type="button" class="btn btn-success col-12" onclick="Add_Estimate()">Create</button>
+	  </div>
+	  <div class="form-group col-5">
+	  <input type="text" class="form-control" id="Estimate_Search" placeholder="Search" onkeyup="Search_Row(&#39;Estimate&#39;,&#39;Estimate_Search&#39;)">
+	  </div>
+	  <div class="form-group col-3">
+       <div class="btn">Attach To Est. No.</div>
+	  </div>
+	  <div class="form-group col-2">
+       <input id="Attach_Sr_No" class="form-control text-danger">
+	  </div>
+	  <div class="form-group col-2">
+       <button type="button" class="btn btn-success col-12" onclick="AtachToEstimate()">Attach</button>
+	  </div>
+	 
+	  <table class="table ">
+		<thead>
+		<tr>
+		<th></th>
+		<th></th>
+		<th>Total :</th>
+		<th id="OverallAmont">13934</th>
+		<th id="BalanceAmount">13934</th>
+		<th id="collectedAmount">0</th>
+		</tr>
+		<tr>
+		<th>Sr. No.</th>
+		<th>Party</th>
+		<th>Date</th>
+		<th>Amount</th>
+		<th>Balance</th>
+		<th></th>
+		</tr>
+		</thead>
+		<tbody id="Estimate"><tr id="E_0" class="Estimate_Row" style=""><td class="Estimate_No text-danger">0</td><td class="Estimate_Party">Pending</td><td class="Today_Date Estimate_Date">26-10-2024</td><td class="EAmount">13534</td><td class="EBalance">13534</td><td class="Function_Key text-primary"><input type="button" class="btn btn-sm btn-primary" value="Open"></td></tr><tr id="E_4" class="Estimate_Row P_AN" style=""><td class="Estimate_No text-danger">4</td><td class="Estimate_Party">AN</td><td class="Estimate_Date">26-10-2024</td><td class="EAmount">400</td><td class="EBalance">400</td><td class="Function_Key"><input type="button" class="btn btn-sm btn-primary" value="Open"></td></tr><tr id="E_3" class="Estimate_Row P_CASH" style="display: none;"><td class="Estimate_No text-danger">3</td><td class="Estimate_Party">CASH</td><td class="Estimate_Date">26-10-2024</td><td class="EAmount">200</td><td class="EBalance">100</td><td class="Function_Key"><input type="button" class="btn btn-sm btn-primary" value="Open"></td></tr><tr id="E_2" class="Estimate_Row P_LC" style="display: none;"><td class="Estimate_No text-danger">2</td><td class="Estimate_Party">LC</td><td class="Estimate_Date">26-10-2024</td><td class="EAmount">1000</td><td class="EBalance">1000</td><td class="Function_Key"><input type="button" class="btn btn-sm btn-primary" value="Open"></td></tr><tr id="E_1" class="Estimate_Row P_CASH" style="display: none;"><td class="Estimate_No text-danger">1</td><td class="Estimate_Party">CASH</td><td class="Estimate_Date">26-10-2024</td><td class="EAmount">200</td><td class="EBalance">0</td><td class="Function_Key"><input type="button" class="btn btn-sm btn-primary" value="Open"></td></tr>
+      
+      
+    </tbody>
+		</table>
+      </div>  
+	 
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>	
+    </div>
+  </div>
+</div>
+
+<div class="p-3">
+
+<div class="modal fade" id="New_job" tabindex="-1" role="dialog" aria-labelledby="New_job" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="New_jobTitle">New Order</h5>
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#New_job">X</button>
+      </div>
+	  <nav>
+	  
+	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+	<a class="nav-item nav-link active show" id="nav-Job-tab" data-toggle="tab" href="file:///D:/Project/Web/Estimate/Maruthi%20Arts%20Estimate.html#nav-Job" role="tab" aria-controls="nav-Job" aria-selected="true">Job</a>
+	<a class="nav-item nav-link" id="nav-Payment-tab" data-toggle="tab" href="file:///D:/Project/Web/Estimate/Maruthi%20Arts%20Estimate.html#nav-Payment" role="tab" aria-controls="nav-Payment" aria-selected="false">Payment</a>
+	</div>
+	</nav>
+	<div class="tab-content" id="nav-tabContent"> 
+	<div class="tab-pane fade active show" id="nav-Job" role="tabpanel" aria-labelledby="nav-Job-tab">
+      <div class="modal-body form-row">
+      <div class="valid-feedback"></div>
+	   <div class="form-group col-6 btn text-left"><b>Sr. No.</b>&nbsp;<span class="text-danger" id="Job_No">8</span></div>
+	  <div class="form-group col-6">
+       <input type="Date" class="form-control Input_Today_Date" id="Job_Date" required="">
+	  </div>
+    <div class="form-group col-12">
+      <div class="text-danger" id="Job_Alert"></div>
+      <div class="input-group">
+        <input type="text" class="form-control" style="text-transform:capitalize;" id="Job_Description" placeholder="Description item Quantity or drop file to auto fill" value="" required="">
+        <div class="input-group-append">
+        <label for="job_file" class="input-group-text">Select</label>
+        <input type="file" id="job_file" onchange="getFileName(event)" class="d-none">
+      </div>
+      </div>
+  </div>
+	  <div class="form-group col-6">
+	  <input type="text" class="form-control" id="Job_Items" placeholder="Item" required="">
+	  </div>
+	  <div class="form-group col-6">
+       <select type="text" class="form-control Items_list" id="Items_list" onchange="GetRate()" required=""><option value="0">Select Item</option><option value="Items_1">4040 - 2</option><option value="Items_4">8080 - 2</option></select>
+      </div>
+	  <div class="form-group input-group col-4">
+       <input type="number" class="form-control" id="Job_Quantity" placeholder="Quantiy" onkeyup="GetAmount()" value="" required="">
+	  <div class="input-group-append">
+		<span class="input-group-text" id="">Pcs.</span>
+	  </div>
+      </div>
+	  <div class="form-group input-group col-4">
+	   <input type="number" class="form-control" id="Job_Rate" placeholder="Rate" onkeyup="GetAmount()" value="" required="">
+	  <div class="input-group-append">
+		<span class="input-group-text" id="">&#8377;  </span>
+	  </div>
+	  </div>
+	  <div class="form-group input-group col-4">
+	   <input type="number" class="form-control" id="Job_Amount" placeholder="Amount" value="" required="" disabled="">
+	  <div class="input-group-append">
+		<span class="input-group-text" id="">&#8377;  </span>
+	  </div>
+	  </div>
+      </div>
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="add_entry" onclick="addEntry()">Submit</button>
+     </div>
+	</div>
+	<div class="tab-pane fade" id="nav-Payment" role="tabpanel" aria-labelledby="nav-Payment-tab">
+	<div class="modal-body form-row">
+      <div class="valid-feedback"></div>
+	   <div class="form-group col-12"><b>Sr. No.</b>&nbsp; <span class="text-danger" id="Pay_No">3</span></div>
+	  <div class="form-group col-12">
+       <input type="text" class="form-control" id="Pay_Description" placeholder="Description" value="" required="">
+      </div>
+	  <div class="form-group input-group col-6">
+		<span class="input-group-text" id="PayType">-</span>
+	   <input type="number" class="form-control" id="Pay_Amount" placeholder="Amount" value="" required="">
+      <div class="input-group-append">
+		<span class="input-group-text" id="">&#8377; </span>
+	  </div>
+	  </div>
+	  <div class="form-group col-6">
+       <input type="Date" class="form-control Input_Today_Date" id="Pay_Date" required="">
+      </div>
+      </div>
+	<div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="Add_Payment()">Add Payment</button>
+     </div>
+	</div>
+	</div>
+	  
+      
+    </div>
+  </div>
+</div>
+
+<div id="Print_Table">
+<div class="Estimate_Bill">
+<div id="Record_Detail" class="d-flex justify-content-between">
+<div class="navbar-brand Party_Detail d-flex">
+To.&nbsp;<b><span class="Selected_Party">Anubandha Enterprises</span></b>
+</div>
+
+<div class="navbar-brand Estimate_Detail d-none">
+Date:&nbsp;<b class="Today_Date Estimate_Date_View">26-10-2024</b> &nbsp; &nbsp;
+Estimate No. : &nbsp;<b id="Estimate_Selected" class="text-danger">3</b>
+<input type="button" id="Print_Button" class="btn btn-sm btn-primary ml-3 No_Print" value="Print" onclick="Print_Estimate()" style="display: none;">
+</div>
+</div>
+
+<table id="Main_Table" class="table table-sm table-striped">
+<thead>
+<tr class="E_1 E_2 E_3 E_4">
+<th class="SrNo">Sr. No. </th>
+<th class="For_Partys" style="display: none;">Party's </th>
+<th class="For_Estimate" style="display: none;">4</th>
+<th class="Job_Date">Date</th>
+<th class="Job_Description">Description </th>
+<th class="Job_item">Item</th>
+<th class="Job_Quantity">Quantiy</th>
+<th class="Job_Rate">Rate</th>
+<th class="Job_Amount">Amount</th>
+<th class="For_Attach" style="display: none;"><input type="button" value="Attach" id="Attach_All" class="btn btn-sm btn-light text-secondary" onclick="Attach_For()"></th>
+<th class="Function_Key" style="">
+<input type="button" id="Add_New_Job" class="btn btn-sm btn-secondary d-flex" title="alt+n" value="New Order" data-toggle="modal" data-target="#New_job">
+</th>
+</tr>
+</thead>
+<tbody id="Job_Rows">
+  
+  
+  
+  
+  
+  <!-- Continue for other parties as per your list -->
+  
+<tr id="Job_7" class="Job_Row P_AN E_0"><td class="Job_Id">1</td><td class="For_Partys" style="display: none;">AN</td><td class="For_Estimate text-danger">0</td><td class="Job_Date">26-10-2024</td><td class="Job_Description">sdnfsndkl</td><td class="Job_item">83247</td><td class="Job_Quantity">6767</td><td class="Job_Rate"> <span>2</span></td><td class="Job_Amount"> <span>13534</span></td><td class="For_Attach"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#orders_bin&#39;); deleteentry(&#39;orders_bin&#39;);">Delete</button></td></tr></tbody>
+<thead>
+    <tr class="">
+      <th class="SrNo"></th>
+	  <th class="For_Partys" style="display: none;"></th>
+	  <th class="For_Estimate" style="display: none;">34</th>
+      <th class="Job_Date"></th>
+      <th class="Job_Description">Total :</th>
+      <th class="Job_item"></th>
+      <th class="Job_Quantity" id="G_Total_Q">6767</th>
+      <th class="Job_Rate"></th>
+      <th class="Job_Amount" id="G_Total_A">&#8377; <span>13534</span></th>
+      <th class="For_Attach" style="display: none;"></th>
+      <th class="Function_Key" style="">
+	 </th>
+    </tr>
+</thead>
+<tbody id="Pay_Rows">
+
+</tbody>
+<thead>
+    <tr class="E_2">
+      <th class="SrNo"></th>
+	  <th class="For_Partys" style="display: none;"></th>
+	  <th class="For_Estimate" style="display: none;">2</th>
+      <th class="Job_Date"></th>
+      <th class="Job_Description">Total Amount To be Pay : </th>
+      <th class="Job_item"></th>
+      <th class="Job_Quantity"></th>
+      <th class="Job_Rate"></th>
+      <th class="Job_Amount ForGTotsl" id="Amount_TO_Be_Paid">&#8377; <span>13534</span></th>
+      <th class="For_Attach col-1" style="display: none;">
+        
+	  <span id="Attach_Function" class="d-none">
+      <input type="button" class="btn btn-sm btn-danger btn-primary" value="Cancel" onclick="Attach_Cancel()">
+      </span>
+      </th>
+      <th class="Function_Key col-1" style="">
+	  <input type="button" id="Attach_To" class="btn btn-sm btn-success" value="Attach" onclick="Attach_To()" style="display: inline-block;">
+    <input type="button" id="create_estimate" class="btn btn-sm btn-secondary d-none" value="Make Estimate" data-toggle="modal" data-target="#Manage_Estimate">
+	  </th>
+    </tr>
+</thead>
+</table>
+</div>
+</div>
+
+<div class="modal fade" id="Analytics" tabindex="-1" role="dialog" aria-labelledby="Analytics" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Analytics</h5>
+        <div>
+        <input type="button" class="btn btn-sm btn-secondary" value="Current" onclick="DistictValue()">
+        <input type="button" class="btn btn-sm btn-secondary" value="Overall" id="oallsta" onclick="OverAllDistictValue()">
+        <input type="button" class="btn btn-sm btn-warning" value="Restore Job" onclick="RecycleBin()">
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#Analytics">X</button>
+        </div>
+      </div>
+      <div class="modal-body form-row">
+        <table id="Statistics" class="table table-sm w-100 text-capitalize">
+        <thead>
+        <tr><th>No.</th><th>Item</th><th>Order</th><th>Pcs</th><th>Rate</th><th>Amount</th></tr>
+        </thead>
+        <tbody id="StatisticsTable"><tr><td class="ssrn">1</td><td>83247</td><td class="TOrders">1</td><td class="pcs">6767</td><td class=""> 2</td><td>13534</td></tr></tbody>
+        <tfoot>
+        <tr><th></th><th></th><th id="OrderCount">1</th><th id="PcsCount">6767</th><th id="RateCount"></th><th id="AmountCount">13534</th></tr>
+        </tfoot>
+        </table>
+      </div>
+	    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>	
+    </div>
+  </div>
+</div>
+
+</div>
+
+<table id="Database" class="table table-sm table-striped d-none">
+<tbody id="Jobs" style="display: none;">
+
+<tr id="Job_2" class="Job_Row P_LC E_2"><td class="Job_Id">1</td><td class="For_Partys" style="display: none;">LC</td><td class="For_Estimate text-danger">2</td><td class="Job_Date">26-10-2024</td><td class="Job_Description">amit anita</td><td class="Job_item">80x10</td><td class="Job_Quantity">500</td><td class="Job_Rate"> <span>2</span></td><td class="Job_Amount"> <span>1000</span></td><td class="For_Attach" style="display: none;"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#orders_bin&#39;); deleteentry(&#39;orders_bin&#39;);">Delete</button></td></tr><tr id="Job_1" class="Job_Row P_CASH E_1"><td class="Job_Id">1</td><td class="For_Partys" style="display: none;">CASH</td><td class="For_Estimate text-danger">1</td><td class="Job_Date">26-10-2024</td><td class="Job_Description">amit weds anita</td><td class="Job_item">70x10</td><td class="Job_Quantity">100</td><td class="Job_Rate"> <span>2</span></td><td class="Job_Amount"> <span>200</span></td><td class="For_Attach" style="display: none;"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#orders_bin&#39;); deleteentry(&#39;orders_bin&#39;);">Delete</button></td></tr><tr id="Job_6" class="Job_Row P_AN E_4"><td class="Job_Id">2</td><td class="For_Partys" style="display: none;">AN</td><td class="For_Estimate text-danger">4</td><td class="Job_Date">26-10-2024</td><td class="Job_Description">amit</td><td class="Job_item">8080</td><td class="Job_Quantity">100</td><td class="Job_Rate"> <span>2</span></td><td class="Job_Amount"> <span>200</span></td><td class="For_Attach" style="display: none;"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#orders_bin&#39;); deleteentry(&#39;orders_bin&#39;);">Delete</button></td></tr><tr id="Job_5" class="Job_Row P_AN E_4"><td class="Job_Id">1</td><td class="For_Partys" style="display: none;">AN</td><td class="For_Estimate text-danger">4</td><td class="Job_Date">26-10-2024</td><td class="Job_Description">dilip kumar</td><td class="Job_item">4040</td><td class="Job_Quantity">100</td><td class="Job_Rate"> <span>2</span></td><td class="Job_Amount"> <span>200</span></td><td class="For_Attach" style="display: none;"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#orders_bin&#39;); deleteentry(&#39;orders_bin&#39;);">Delete</button></td></tr><tr id="Job_3" class="Job_Row P_CASH E_3"><td class="Job_Id">1</td><td class="For_Partys" style="display: none;">CASH</td><td class="For_Estimate text-danger">3</td><td class="Job_Date">26-10-2024</td><td class="Job_Description">amit weds anita</td><td class="Job_item">70x10</td><td class="Job_Quantity">100</td><td class="Job_Rate"> <span>2</span></td><td class="Job_Amount"> <span>200</span></td><td class="For_Attach" style="display: none;"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#orders_bin&#39;); deleteentry(&#39;orders_bin&#39;);">Delete</button></td></tr><tr id="Job_4" class="Job_Row P_CASH E_0"><td class="Job_Id">1</td><td class="For_Partys" style="display: none;">CASH</td><td class="For_Estimate text-danger">0</td><td class="Job_Date">26-10-2024</td><td class="Job_Description">amit weds anita</td><td class="Job_item">70x10</td><td class="Job_Quantity">100</td><td class="Job_Rate"> <span>2</span></td><td class="Job_Amount"> <span>200</span></td><td class="For_Attach" style="display: none;"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key" style="display: none;"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#orders_bin&#39;); deleteentry(&#39;orders_bin&#39;);">Delete</button></td></tr></tbody>
+<tbody id="Pays" style="display: none;">
+  
+<tr id="Pay_1" class="Pay_Row P_CASH E_1"><td class="Pay_Id">1</td><td class="For_Partys" style="display: none;">CASH</td><td class="For_Estimate text-danger" style="display: none;">1</td><td class="Pay_Date">26-10-2024</td><td class="Pay_Description">Pay</td><td class=""></td><td class=""></td><td class=""><span></span></td><td class="Pay_Amount"> <span>-200</span></td><td class="For_Attach" style="display: none;"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#payments_bin&#39;); deleteentry(&#39;payments_bin&#39;);">Delete</button></td></tr><tr id="Pay_2" class="Pay_Row P_CASH E_3"><td class="Pay_Id">1</td><td class="For_Partys" style="display: none;">CASH</td><td class="For_Estimate text-danger" style="display: none;">3</td><td class="Pay_Date">26-10-2024</td><td class="Pay_Description">pay</td><td class=""></td><td class=""></td><td class=""><span></span></td><td class="Pay_Amount"> <span>-100</span></td><td class="For_Attach" style="display: none;"><input type="button" value="Attach" class="btn btn-sm btn-light text-secondary"></td><td class="Function_Key"><button class="btn btn-sm btn-danger" onclick="$(this).closest(&#39;tr&#39;).detach().appendTo(&#39;#payments_bin&#39;); deleteentry(&#39;payments_bin&#39;);">Delete</button></td></tr></tbody>
+</table>
+<div id="recycle_bin" style="display: none;">
+  <h4>Orders Bin</h4>
+  <table class="table table-sm table-striped">
+  <tbody id="orders_bin">
+  
+  </tbody>
+  </table>
+  <h4>Payments Bin</h4>
+  <table class="table table-sm table-striped">
+  <tbody id="payments_bin">
+  
+  </tbody>
+  </table>
+</div>
+</div>
+
+<script id="script" src="./Maruthi Arts Estimate_files/jquery.min.js.download"></script>
+<script id="script" src="./Maruthi Arts Estimate_files/bootstrap.min.js.download"></script>
+<script id="script" src="./Maruthi Arts Estimate_files/hotkeys.min.js.download"></script>
+<script id="script" src="./Maruthi Arts Estimate_files/estimate.js.download"></script>
+</body></html>

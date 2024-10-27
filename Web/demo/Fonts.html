@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)file:///G:/My%20Drive/Web/demo/Fonts.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Fonts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<script src="./Fonts_files/jquery.min.js.download"></script>
+<script src="./Fonts_files/html2canvas.js.download"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Vollkorn+SC:wght@600&display=swap');
+</style>
+</head>
+<body>
+
+<div style="width:100%;display:flex;flex-direction: column;align-items:center;justify-content:center;">
+<h2>
+80 X 10 Name Plate
+</h2>
+<input type="text" id="content" style="width:75mm;height:8mm;" onkeyup="AddData()">
+<br>
+
+<div style="border:1px solid black;width:80mm;height:10mm;display:flex;align-items: center;justify-content:center;" onclick="ContentSelect(1)">
+<div id="content1" class="content" style="background-color:;white-space:nowrap;font-size:8mm;font-family: &#39;Courgette&#39;, cursive; transform: scale(1,1);font-size:7mm;">Maruthi</div>
+</div>
+<br>
+<div style="border:1px solid black;width:80mm;height:10mm;display:flex;align-items: center;justify-content:center;" onclick="ContentSelect(2)">
+<div id="content2" class="content" style="background-color:;white-space:nowrap;font-size:8mm;font-family: &#39;Lobster&#39;, cursive;transform: scale(1,1);font-size:7mm;">Maruthi</div>
+</div>
+<br>
+<div style="border:1px solid black;width:80mm;height:10mm;display:flex;align-items: center;justify-content:center;" onclick="ContentSelect(3)">
+<div id="content3" class="content" style="background-color:;white-space:nowrap;font-size:8mm;font-family: &#39;Vollkorn SC&#39;, serif;transform: scale(1,1);font-size:7mm;">Maruthi</div>
+</div>
+<br>
+<div style="border:1px solid black;width:80mm;height:10mm;display:flex;align-items: center;justify-content:center;" onclick="ContentSelect(4)">
+<div id="content4" class="content" style="background-color:;white-space:nowrap;font-size:8mm;font-family:&#39;Brush Script MT&#39;, cursive;, serif;transform: scale(1,1);font-size:7mm;">Maruthi</div>
+</div>
+<br>
+
+<div style="display;flex;">
+<input type="number" id="selected_content" style="width:10mm;">
+Width:
+<input type="number" id="width-range" style="width:10mm;" value="1" step=".05" onchange="SetText()">
+Height:
+<input type="number" id="height-range" style="width:10mm;" value="1" step=".05" onchange="SetText()">
+</div>
+</div>
+
+<script>
+
+function AddData(){
+var content = $("#content").val();
+$(".content").html(content);
+}
+
+function ContentSelect(contid){
+$("#selected_content").val(contid);
+var width = $("#content"+contid).css("transform").split(',')[0].replace(/[^0-9]/g, '');
+if(width > 1){
+width = width/100;
+}
+$("#width-range").val(width);
+var height = parseFloat($("#content"+contid).css("transform").split(',')[3]);
+$("#height-range").val(height);
+}
+
+function SetText(){
+var contid = $("#selected_content").val();
+var width = $("#width-range").val();
+var height = $("#height-range").val();
+$("#content"+contid).css("transform","scale("+width+", "+height+")");
+}
+
+
+</script>
+
+</body></html>

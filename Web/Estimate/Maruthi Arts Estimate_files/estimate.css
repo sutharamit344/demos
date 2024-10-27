@@ -1,0 +1,28 @@
+
+@import "https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css";
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.CancelEdit,.UpdateRow, .For_Attach, .For_Estimate{
+display:none;
+}
+
+.Job_Quantity, .Job_item{
+    text-align: center;
+}
+
+.Job_Rate,.Job_Amount,.Job_Quantiy, .Pay_Amount{
+text-align:right;
+}
+
+.Job_Size{
+text-align:center;
+}
+#dropZone {
+    cursor: pointer;
+}
+#dropZone.dragover {
+    background-color: #bbbbbb;
+}
